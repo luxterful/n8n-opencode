@@ -26,7 +26,7 @@ RUN echo '#!/bin/sh' > /start.sh \
     && echo '    chmod 600 /root/.ssh/authorized_keys' >> /start.sh \
     && echo 'fi' >> /start.sh \
     && echo '/usr/sbin/sshd' >> /start.sh \
-    && echo 'exec opencode web --port 3000' >> /start.sh \
+    && echo 'exec opencode web --hostname 0.0.0.0 --port 3000' >> /start.sh \
     && chmod +x /start.sh
 
 
