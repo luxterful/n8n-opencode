@@ -28,7 +28,11 @@ RUN echo '#!/bin/sh' > /start.sh \
     && echo 'exec opencode --port 3000' >> /start.sh \
     && chmod +x /start.sh
 
+# Create and set working directory
+RUN mkdir -p /opencode-home
+WORKDIR /opencode-home
+
 # Expose ports
 EXPOSE 2222 3000
 
-CMD ["/start.sh"]
+CMD ["/bin/sh", "/start.sh"]
