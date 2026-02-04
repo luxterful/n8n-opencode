@@ -22,8 +22,8 @@ COPY ./home /root/home
 ENV OPENCODE_CONFIG_DIR=/root/home/.config
 
 # Copy startup script
-COPY start.sh /root/start.sh
-RUN chmod +x /root/start.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 COPY run.sh /root/run.sh
 RUN chmod +x /root/run.sh
@@ -34,4 +34,4 @@ EXPOSE 2222 3000
 RUN cp -r /root /root-template
 WORKDIR /root/home
 ENTRYPOINT ["/bin/sh"]
-CMD ["/root/start.sh"]
+CMD ["/start.sh"]
