@@ -17,7 +17,10 @@ RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
 
 # Create startup script
 RUN echo '#!/bin/sh' > /start.sh \
-    && echo 'if [ -f /ssh-keys/authorized_keys ]; then' >> /start.sh \
+    && echo 'if [ -n "$SSH_PUBLIC_KEY" ]; then' >> /start.sh \
+    && echo '    echo "$SSH_PUBLIC_KEY" > /root/.ssh/authorized_keys' >> /start.sh \
+    && echo '    chmod 600 /root/.ssh/authorized_keys' >> /start.sh \
+    && echo 'elif [ -f /ssh-keys/authorized_keys ]; then' >> /start.sh \
     && echo '    cp /ssh-keys/authorized_keys /root/.ssh/authorized_keys' >> /start.sh \
     && echo '    chmod 600 /root/.ssh/authorized_keys' >> /start.sh \
     && echo 'fi' >> /start.sh \
