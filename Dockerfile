@@ -16,7 +16,8 @@ RUN mkdir -p /var/run/sshd \
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
 
 # Copy home folder contents to /root/home
-COPY ./home /root/home
+COPY ./home /root/home-template
+RUN mkdir -p /root/home
 WORKDIR /root/home
 
 # Set opencode config directory
