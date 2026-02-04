@@ -4,8 +4,6 @@ services:
     ports:
       - "3000:3000"
       - "2222:2222"
-    volumes:
-      - ./ssh-keys:/ssh-keys:ro
     environment:
       - SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY:-}
     restart: unless-stopped

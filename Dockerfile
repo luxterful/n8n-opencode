@@ -15,24 +15,23 @@ RUN mkdir -p /var/run/sshd \
 # Create .ssh directory for root user
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
 
+# Create and set working directory
+RUN mkdir -p /opencode-home
+WORKDIR /opencode-home
+
 # Create startup script
 RUN echo '#!/bin/sh' > /start.sh \
     && echo 'if [ -n "$SSH_PUBLIC_KEY" ]; then' >> /start.sh \
     && echo '    echo "$SSH_PUBLIC_KEY" > /root/.ssh/authorized_keys' >> /start.sh \
-    && echo '    chmod 600 /root/.ssh/authorized_keys' >> /start.sh \
-    && echo 'elif [ -f /ssh-keys/authorized_keys ]; then' >> /start.sh \
-    && echo '    cp /ssh-keys/authorized_keys /root/.ssh/authorized_keys' >> /start.sh \
     && echo '    chmod 600 /root/.ssh/authorized_keys' >> /start.sh \
     && echo 'fi' >> /start.sh \
     && echo '/usr/sbin/sshd' >> /start.sh \
     && echo 'exec opencode web --port 3000' >> /start.sh \
     && chmod +x /start.sh
 
-# Create and set working directory
-RUN mkdir -p /opencode-home
-WORKDIR /opencode-home
 
 # Expose ports
 EXPOSE 2222 3000
 
-CMD ["/bin/sh", "/start.sh"]
+ENTRYPOINT ["/bin/sh"]
+CMD ["/start.sh"]
