@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 prompt=""
 if [ ! -f "./home/BOOTSTRAP.md" ]; then
