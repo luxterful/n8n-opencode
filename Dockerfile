@@ -16,9 +16,7 @@ RUN mkdir -p /var/run/sshd \
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
 
 # Copy home folder contents to /root/home
-COPY ./home /root/home-template
-RUN mkdir -p /root/home
-WORKDIR /root/home
+COPY ./home /root/home
 
 # Set opencode config directory
 ENV OPENCODE_CONFIG_DIR=/root/home/.config
@@ -33,6 +31,7 @@ RUN chmod +x /root/run.sh
 # Expose ports
 EXPOSE 2222 3000
 
+RUN cp -r /root /root-template
 WORKDIR /root/home
 ENTRYPOINT ["/bin/sh"]
 CMD ["/root/start.sh"]
